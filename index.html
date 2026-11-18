@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tya & Mzh Memories</title>
+    <title>Phein & Moon Memories</title>
     <style>
         * {
             box-sizing: border-box;
@@ -266,7 +266,7 @@
             margin-top: 3px;
         }
 
-        /* Info Cards Section (မွေးနေ့နှင့် ကိုယ်ရေးအချက်အလက် ကဒ်များ) */
+        /* Info Cards Section (မွေးနေ့နှင့် အချက်အလက် ကဒ်များ) */
         .info-section-title {
             font-size: 20px;
             color: #fff;
@@ -327,7 +327,7 @@
         <div class="hero-card">
             <!-- ကြောင်ကလေး ဖုန်းကိုကိုင်ပြီး နမ်းနေတဲ့ စတေကာ GIF -->
             <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y1b250ajJscDF0bHllYWk2YTZ3OHFucmEzdjR6cXh3cTV3dzl3aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9n/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat Kissing Phone" class="cat-sticker">
-            <h1>🌸 Tya & Mzh Memories 🌸</h1>
+            <h1>🌸 Phein & Moon Memories 🌸</h1>
             <p>A collection of our sweetest moments & endless love 💕</p>
             <button class="btn-enter" onclick="openModal()">ဝင်ရန်</button>
         </div>
@@ -387,7 +387,7 @@
     </section>
 
     <script>
-        const correctPassword = "2684";
+        const correctPassword = "0421";
 
         // 🌟 စတင်တွဲသည့်ရက်ကို 2026.04.21 သို့ သတ်မှတ်ထားသည်
         const startDate = new Date("2026-04-21T00:00:00");
@@ -423,6 +423,7 @@
             const heart = document.createElement('div');
             heart.classList.add('heart');
             
+            TheSize = Math.random() * 15 + 10;
             const size = Math.random() * 15 + 10;
             heart.style.width = size + 'px';
             heart.style.height = size + 'px';
