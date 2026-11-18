@@ -310,7 +310,7 @@
             line-height: 1.5;
         }
 
-        /* MNOAONNG Letters Grid */
+        /* MNOAONNG Letters Vertical Layout (ဒေါင်လိုက်စီရန်) */
         .letters-section-title {
             font-size: 20px;
             color: #fff;
@@ -318,11 +318,11 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
-        .letters-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        .letters-vertical-container {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
-            max-width: 400px;
+            max-width: 280px;
             margin: 0 auto 30px;
         }
 
@@ -331,16 +331,17 @@
             color: #ff4757;
             border: 2px solid rgba(255, 255, 255, 0.8);
             border-radius: 18px;
-            padding: 18px 0;
+            padding: 14px 0;
             font-size: 22px;
             font-weight: bold;
             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             cursor: pointer;
             transition: all 0.25s ease;
+            width: 100%;
         }
 
         .letter-btn:hover {
-            transform: translateY(-4px) scale(1.05);
+            transform: translateY(-3px) scale(1.02);
             background: #ffffff;
             box-shadow: 0 10px 20px rgba(0,0,0,0.25);
         }
@@ -482,9 +483,9 @@
             </div>
         </div>
 
-        <!-- M N O A O N N G ခလုတ်များ -->
+        <!-- M N O A O N N G စာလုံးများ ဒေါင်လိုက်စီရန် -->
         <h3 class="letters-section-title">💌 Letters For You 💌</h3>
-        <div class="letters-grid">
+        <div class="letters-vertical-container">
             <button class="letter-btn" onclick="openStory('letter_1')">M</button>
             <button class="letter-btn" onclick="openStory('letter_2')">N</button>
             <button class="letter-btn" onclick="openStory('letter_3')">O</button>
