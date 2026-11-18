@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tya & Mzh Memories</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pyidaungsu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* အနောက်မှာ အသည်းပုံလေးများ ပျံဝဲမည့် Effect */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(255, 255, 255, 0.7);
+            display: inline-block;
+            transform: rotate(-45deg);
+            animation: floatUp 6s infinite linear;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 50%;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(0.6);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(-45deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ပင်မစာမျက်နှာ (Home Section) */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 35px 25px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .cat-sticker {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin: 0 auto 12px;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .hero-card h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            font-weight: bold;
+        }
+
+        .hero-card p {
+            font-size: 14px;
+            color: #fff5f6;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* ဝင်ရန် ခလုတ် */
+        .btn-enter {
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            color: #ff4757;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-enter:hover {
+            background-color: #fff0f3;
+            transform: translateY(-2px);
+        }
+
+        /* Password Pop-up Box */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 25px;
+            border-radius: 25px;
+            text-align: center;
+            width: 85%;
+            max-width: 320px;
+            color: #333;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+
+        .modal-box h3 {
+            margin-bottom: 15px;
+            color: #ff4757;
+            font-size: 18px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ff7eb3;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 16px;
+            outline: none;
+            color: #333;
+        }
+
+        .btn-submit {
+            padding: 10px 25px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .error-msg {
+            color: #ff4757;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+            font-weight: bold;
+        }
+
+        /* Main Content Section */
+        .gallery-section {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .gallery-section h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        /* Anniversary Counter Box Style */
+        .counter-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .counter-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #fff5f6;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .counter-box {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px 5px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .counter-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .counter-label {
+            font-size: 11px;
+            color: #ffeef1;
+            margin-top: 3px;
+        }
+
+        /* Info Cards Section (မွေးနေ့နှင့် ကိုယ်ရေးအချက်အလက် ကဒ်များ) */
+        .info-section-title {
+            font-size: 20px;
+            color: #fff;
+            margin: 25px 0 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto 25px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .info-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .info-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .info-detail {
+            font-size: 13px;
+            color: #fff5f6;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 500px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- အနောက်မှာ အသည်းပုံလေးများ ပျံဝဲမည့် Effect -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- ပင်မစာမျက်နှာ -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-card">
+            <!-- ကြောင်ကလေး ဖုန်းကိုကိုင်ပြီး နမ်းနေတဲ့ စတေကာ GIF -->
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y1b250ajJscDF0bHllYWk2YTZ3OHFucmEzdjR6cXh3cTV3dzl3aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9n/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat Kissing Phone" class="cat-sticker">
+            <h1>🌸 Tya & Mzh Memories 🌸</h1>
+            <p>A collection of our sweetest moments & endless love 💕</p>
+            <button class="btn-enter" onclick="openModal()">ဝင်ရန်</button>
+        </div>
+    </section>
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="passModal">
+        <div class="modal-box">
+            <h3>🔑 Passcode ထည့်ပါ</h3>
+            <input type="password" id="passInput" class="password-input" placeholder="Password ရိုက်ပါ">
+            <button class="btn-submit" onclick="checkPassword()">အတည်ပြုမည်</button>
+            <p class="error-msg" id="errorMsg">Password မှားယွင်းနေပါသည်။</p>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <section id="memories" class="gallery-section">
+        <h2>Our Journey 💕</h2>
+
+        <!-- Anniversary Counter Box (ချစ်သက်တမ်း ရေတွက်စက် - 2026.04.21) -->
+        <div class="counter-card">
+            <div class="counter-title">✨ Together Since 2026.04.21 ✨</div>
+            <div class="counter-grid">
+                <div class="counter-box">
+                    <div class="counter-number" id="daysCount">0</div>
+                    <div class="counter-label">ရက်</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" id="hoursCount">0</div>
+                    <div class="counter-label">နာရီ</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" id="minsCount">0</div>
+                    <div class="counter-label">မိနစ်</div>
+                </div>
+                <div class="counter-box">
+                    <div class="counter-number" id="secsCount">0</div>
+                    <div class="counter-label">စက္ကန့်</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards Section (မွေးနေ့နှင့် အချက်အလက် ကဒ်များ) -->
+        <h3 class="info-section-title">🎂 Birthday & Info Cards 🎂</h3>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">🌸</div>
+                <div class="info-name">Nang Lao Phein</div>
+                <div class="info-detail">Birthday: 2011.02.12<br>Our Sweetheart ✨</div>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🌿</div>
+                <div class="info-name">Aung Myo Hein</div>
+                <div class="info-detail">Birthday: 2005.07.24<br>My Everything 💕</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const correctPassword = "2684";
+
+        // 🌟 စတင်တွဲသည့်ရက်ကို 2026.04.21 သို့ သတ်မှတ်ထားသည်
+        const startDate = new Date("2026-04-21T00:00:00");
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / (1000 * 60)) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('daysCount').innerText = days;
+                document.getElementById('hoursCount').innerText = hours;
+                document.getElementById('minsCount').innerText = mins;
+                document.getElementById('secsCount').innerText = secs;
+            } else {
+                document.getElementById('daysCount').innerText = 0;
+                document.getElementById('hoursCount').innerText = 0;
+                document.getElementById('minsCount').innerText = 0;
+                document.getElementById('secsCount').innerText = 0;
+            }
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // အနောက်မှာ အသည်းပုံလေးများ ပျံဝဲစေရန်
+        function createHeart() {
+            const heartsBg = document.getElementById('heartsBg');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            const size = Math.random() * 15 + 10;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 3 + 4;
+            heart.style.animationDuration = duration + 's';
+            
+            heartsBg.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createHeart, 400);
+
+        function openModal() {
+            const modal = document.getElementById('passModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+            const errorMsg = document.getElementById('errorMsg');
+            if (errorMsg) {
+                errorMsg.style.display = 'none';
+            }
+            const passInput = document.getElementById('passInput');
+            if (passInput) {
+                passInput.value = '';
+            }
+        }
+
+        function checkPassword() {
+            const passInput = document.getElementById('passInput');
+            if (!passInput) return;
+            const userPass = passInput.value;
+            
+            if (userPass === correctPassword) {
+                const passModal = document.getElementById('passModal');
+                if (passModal) passModal.style.display = 'none';
+                
+                const heroSection = document.getElementById('heroSection');
+                if (heroSection) heroSection.style.display = 'none';
+                
+                const memories = document.getElementById('memories');
+                if (memories) memories.style.display = 'block';
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const errorMsg = document.getElementById('errorMsg');
+                if (errorMsg) errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
